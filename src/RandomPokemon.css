@@ -1,0 +1,93 @@
+.RandomPokemon {
+  width: 300px;
+  border: solid 4px #000;
+  margin: 15px;
+  display: inline-block;
+  height: 400px;
+  background: #fff;
+  box-shadow: 8px 8px 0 #000;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.pokemon-content {
+  position: relative;
+  height: 100%;
+}
+
+.pokemon-lore {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 20px;
+  transition: bottom 0.3s ease-in-out;
+  min-height: 74px;
+  border-top: 4px solid #000;
+}
+
+.RandomPokemon:hover .pokemon-lore {
+  bottom: 0;
+}
+
+.pokemon-lore p {
+  font-size: 0.9rem;
+  margin: 0;
+  font-family: "Courier New", monospace;
+  line-height: 1.4;
+}
+
+.RandomPokemon:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 #000;
+}
+
+.RandomPokemon h1 {
+  font-family: "Courier New", monospace;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  color: #000;
+  margin: 1rem 0;
+  -webkit-text-stroke: 1px #000;
+}
+
+.RandomPokemon img {
+  width: 180px;
+  image-rendering: pixelated;
+  filter: contrast(1.2);
+  background: #f0f0f0;
+  padding: 20px;
+  border: 3px solid #000;
+}
+
+button {
+  display: block;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: #2ecc71;
+  color: white;
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0 #000;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: "Courier New", monospace;
+  letter-spacing: 1px;
+}
+
+button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 #000;
+  background: #27ae60;
+}
+
+button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+  background: #219a52;
+}
