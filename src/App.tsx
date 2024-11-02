@@ -2,34 +2,51 @@ import "./App.css";
 import RandomPokemon from "./RandomPokemon";
 import { useState, useEffect } from "react";
 
-const generatePokemon = () => {
+const generatePokemon = async () => {
   const id = Math.floor(Math.random() * 151) + 1;
+  const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  const ability = await fetch(`https://pokeapi.co/api/v2/ability/${id}/`);
+  const pokemonData = await pokemon.json();
+  const abilityData = await ability.json();
   return {
-    id,
-    url: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
+    name: pokemonData.name,
+    url: pokemonData.sprites.front_default,
+    ability: abilityData.effect_entries[1].short_effect,
   };
 };
 
 export default function App() {
   const [pokemon, setPokemon] = useState(() =>
     Array.from({ length: 3 }, () => ({
-      id: 0,
+      name: "",
       url: "",
+      ability: "",
     }))
   );
 
+  const fetchNewPokemon = async () => {
+    const pokemonPromises = Array.from({ length: 3 }, generatePokemon);
+    const pokemonData = await Promise.all(pokemonPromises);
+    setPokemon(pokemonData);
+  };
+
   useEffect(() => {
-    setPokemon(() => Array.from({ length: 3 }, generatePokemon));
+    fetchNewPokemon();
   }, []);
 
   const handleClick = () => {
-    setPokemon(pokemon.map(() => generatePokemon()));
+    fetchNewPokemon();
   };
 
   return (
     <div className="App">
       {pokemon.map((pokemon, i) => (
-        <RandomPokemon key={i} id={pokemon.id} url={pokemon.url} />
+        <RandomPokemon
+          key={i}
+          name={pokemon.name}
+          url={pokemon.url}
+          ability={pokemon.ability}
+        />
       ))}
       <button onClick={handleClick}>Refresh</button>
     </div>

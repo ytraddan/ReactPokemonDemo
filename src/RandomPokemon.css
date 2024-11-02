@@ -16,7 +16,7 @@
   height: 100%;
 }
 
-.pokemon-lore {
+.pokemon-ability {
   position: absolute;
   bottom: -100%;
   left: 0;
@@ -29,12 +29,12 @@
   border-top: 4px solid #000;
 }
 
-.RandomPokemon:hover .pokemon-lore {
+.RandomPokemon:hover .pokemon-ability {
   bottom: 0;
 }
 
-.pokemon-lore p {
-  font-size: 0.9rem;
+.pokemon-ability p {
+  font-size: 1rem;
   margin: 0;
   font-family: "Courier New", monospace;
   line-height: 1.4;
