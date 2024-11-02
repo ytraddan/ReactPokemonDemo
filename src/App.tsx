@@ -11,8 +11,8 @@ export default function App() {
   );
 
   useEffect(() => {
-    setPokemon(
-      pokemon.map(() => {
+    setPokemon(() => 
+      Array.from({ length: 3 }, () => {
         const id = Math.floor(Math.random() * 151) + 1;
         return {
           id,
