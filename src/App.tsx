@@ -2,7 +2,15 @@ import "./App.css";
 import RandomPokemon from "./RandomPokemon";
 import { useState, useEffect } from "react";
 
-const generatePokemon = async () => {
+const POKEMON_COUNT = 3;
+
+interface Pokemon {
+  name: string;
+  url: string;
+  ability: string;
+}
+
+const generatePokemon = async (): Promise<Pokemon> => {
   const id = Math.floor(Math.random() * 151) + 1;
   const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
   const ability = await fetch(`https://pokeapi.co/api/v2/ability/${id}/`);
@@ -16,8 +24,8 @@ const generatePokemon = async () => {
 };
 
 export default function App() {
-  const [pokemon, setPokemon] = useState(() =>
-    Array.from({ length: 3 }, () => ({
+  const [pokemon, setPokemon] = useState<Pokemon[]>(() =>
+    Array.from({ length: POKEMON_COUNT }, () => ({
       name: "",
       url: "",
       ability: "",
@@ -25,7 +33,10 @@ export default function App() {
   );
 
   const fetchNewPokemon = async () => {
-    const pokemonPromises = Array.from({ length: 3 }, generatePokemon);
+    const pokemonPromises = Array.from(
+      { length: POKEMON_COUNT },
+      generatePokemon
+    );
     const pokemonData = await Promise.all(pokemonPromises);
     setPokemon(pokemonData);
   };

@@ -1,12 +1,12 @@
 import "./RandomPokemon.css";
 
-interface PokemonProps {
+interface Pokemon {
   name: string;
   url: string;
   ability: string;
 }
 
-export default function RandomPokemon({ name, url, ability }: PokemonProps) {
+export default function RandomPokemon({ name, url, ability }: Pokemon) {
 
   return (
     <div className="RandomPokemon">
