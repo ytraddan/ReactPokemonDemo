@@ -24,6 +24,7 @@ const generatePokemon = async (): Promise<Pokemon> => {
 };
 
 export default function App() {
+  const [loading, setLoading] = useState(false);
   const [pokemon, setPokemon] = useState<Pokemon[]>(() =>
     Array.from({ length: POKEMON_COUNT }, () => ({
       name: "",
@@ -33,12 +34,14 @@ export default function App() {
   );
 
   const fetchNewPokemon = async () => {
+    setLoading(true);
     const pokemonPromises = Array.from(
       { length: POKEMON_COUNT },
       generatePokemon
     );
     const pokemonData = await Promise.all(pokemonPromises);
     setPokemon(pokemonData);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -51,15 +54,18 @@ export default function App() {
 
   return (
     <div className="App">
-      {pokemon.map((pokemon, i) => (
-        <RandomPokemon
-          key={i}
-          name={pokemon.name}
-          url={pokemon.url}
-          ability={pokemon.ability}
-        />
-      ))}
-      <button onClick={handleClick}>Refresh</button>
+      {loading && <div className="spinner"></div>}
+      <div className={loading ? 'pokemon-container loading' : 'pokemon-container'}>
+        {pokemon.map((pokemon, i) => (
+          <RandomPokemon
+            key={i}
+            name={pokemon.name}
+            url={pokemon.url}
+            ability={pokemon.ability}
+          />
+        ))}
+      </div>
+      <button onClick={handleClick} disabled={loading}>Refresh</button>
     </div>
   );
 }
