@@ -10,7 +10,7 @@ interface Pokemon {
   ability: string;
 }
 
-const generatePokemon = async (): Promise<Pokemon> => {
+const fetchPokemon = async (): Promise<Pokemon> => {
   const id = Math.floor(Math.random() * 151) + 1;
   const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
   const ability = await fetch(`https://pokeapi.co/api/v2/ability/${id}/`);
@@ -33,11 +33,11 @@ export default function App() {
     }))
   );
 
-  const fetchNewPokemon = async () => {
+  const generatePokemon = async () => {
     setLoading(true);
     const pokemonPromises = Array.from(
       { length: POKEMON_COUNT },
-      generatePokemon
+      fetchPokemon
     );
     const pokemonData = await Promise.all(pokemonPromises);
     setPokemon(pokemonData);
@@ -45,11 +45,11 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchNewPokemon();
+    generatePokemon();
   }, []);
 
   const handleClick = () => {
-    fetchNewPokemon();
+    generatePokemon();
   };
 
   return (
